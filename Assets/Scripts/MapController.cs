@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class MapController : MonoBehaviour {
 
+    public static MapController Instance;
+
     private SpriteRenderer _background;
     private List<Participant> _players;
     public Participant Assassin
@@ -19,13 +21,22 @@ public class MapController : MonoBehaviour {
     public const float OFFSET = 0.5f;
 
     private List<SpriteRenderer> _mapComponents;
+
+    public delegate void MapMethod(Participant player);
+    public static event MapMethod OnAssasinChange;
     
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
 
 	// Use this for initialization
 	void Start () {
         _players = new List<Participant>();
         _mapComponents = new List<SpriteRenderer>();
         _background = GameObject.Find("Background").GetComponent<SpriteRenderer>();
+        Participant.OnPlayerDead += OnParticipantDead;
 
 
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
@@ -42,19 +53,26 @@ public class MapController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-	
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            SetAssassin();
+        }
 	}
 
     public void GenerateMap()
     {
         SetAssassin();
-        SetMapTheme(_assassin.PlayerColor);
+       
     }
 
     public void SetAssassin()
     {
         //Pick a random player from the list
         _assassin = _players[Random.Range(0, _players.Count)];
+        SetMapTheme(_assassin.PlayerColor);
+        Debug.Log(_assassin.Name);
+        if (OnAssasinChange != null)
+            OnAssasinChange(_assassin);
     }
 
     public void SetMapTheme(Color color)
@@ -64,5 +82,10 @@ public class MapController : MonoBehaviour {
             component.color = color;
         }
         _background.color = new Color(color.r, color.g, color.b, 0.2f);
+    }
+
+    public void OnParticipantDead(Participant participant)
+    {
+        _players.Remove(participant);
     }
 }

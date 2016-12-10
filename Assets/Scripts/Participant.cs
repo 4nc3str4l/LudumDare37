@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Participant : MonoBehaviour {
 
+    public string Name;
     public const float SPEED = 5f;
     public const float MAX_HEALTH = 100f;
     public Cannon Cannon;
@@ -17,15 +18,12 @@ public class Participant : MonoBehaviour {
 	void Start () {
         UIController.Instance.CreateHealthController(this);
         PlayerColor = this.GetComponent<SpriteRenderer>().color;
-	}
+        MapController.OnAssasinChange += OnAssasinChange;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        /*
-        var objectPos = Camera.main.WorldToScreenPoint(transform.position);
-        var dir = Input.mousePosition - objectPos;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg));
-        */
     }
 
     public void Shoot()
@@ -67,6 +65,11 @@ public class Participant : MonoBehaviour {
         if (OnPlayerDead != null)
             OnPlayerDead(this);
         Destroy(gameObject);
+    }
+
+    public void OnAssasinChange(Participant participant)
+    {
+        Cannon.CanFire = participant.Equals(this);
     }
 
 }
