@@ -5,7 +5,7 @@ public class UIController : MonoBehaviour {
 
 
     public static UIController Instance;
-    public GameObject PlayerHealthPrefab;
+    public GameObject PlayerHealthPrefab, OverlayText;
     public Text DialogText;
 
     void Awake()
@@ -30,6 +30,16 @@ public class UIController : MonoBehaviour {
     {
         GameObject playerHealth = GameObject.Instantiate(PlayerHealthPrefab, transform) as GameObject;
         playerHealth.GetComponent<PlayerHealth>().Player = player;
+    }
+
+    public OverlayText CreateOverlayText(Vector3 position, Color color, string text)
+    {
+        GameObject txtOverlay = GameObject.Instantiate(OverlayText, transform) as GameObject;
+        OverlayText uiText = txtOverlay.GetComponent<OverlayText>();
+        uiText.Position = position;
+        uiText.color = color;
+        uiText.GetComponent<Text>().text = text;
+        return uiText;
     }
 
     public void HideAllRoomDialogs()

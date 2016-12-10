@@ -11,13 +11,7 @@ public class MapController : MonoBehaviour {
 
     private SpriteRenderer _background;
     public List<Participant> Players;
-    public Participant Assassin
-    {
-        get
-        {
-            return _assassin;
-        }
-    }
+
     private Participant _assassin;
     public static Vector2 MAP_MIN = new Vector2(-10, -5);
     public const float MAP_WIDTH = 10;
@@ -32,8 +26,11 @@ public class MapController : MonoBehaviour {
     public static event MapMethod OnAssasinChange;
 
     private const float MIN_ASSASIN_TIME = 20f;
-    private float _changeRoomState;
-    
+    private float _changeRoomState, _changedTime;
+
+    private string _actualText;
+    private Color _actualColor;
+
     void Awake()
     {
         if (Instance == null)
@@ -77,15 +74,27 @@ public class MapController : MonoBehaviour {
                 {
                     SetAssassin();
                     UIController.Instance.ShowMessage("OCTAROOM SAYS: THE KILLER IS " + _assassin.Name, _assassin.PlayerColor);
+                    _actualText = _assassin.Name;
+                    _actualColor = _assassin.PlayerColor;
                     _changeRoomState = Time.time + MIN_ASSASIN_TIME + Random.Range(0, 10f);
+                    _changedTime = Time.time;
                     ChangeRoomState(MAP_STATE.PLAYING);
+                    UITimeController.Instance.ChangeData();
+                    Debug.Log(_assassin.Name);
+                    if (OnAssasinChange != null)
+                        OnAssasinChange(_assassin);
                 }
                 break;
             case MAP_STATE.CHOOSING:
                 UIController.Instance.ShowMessage("OCTAROOM SAYS: TIME TO CHOOSE A NEW KILLER...", Color.white);
-                SetMapTheme(Color.white);
+                _actualText = "Thinking...";
+                _actualColor = Color.white;
                 _changeRoomState = Time.time + 3f;
+                _changedTime = Time.time;
+                UITimeController.Instance.ChangeData();
                 ChangeRoomState(MAP_STATE.WAITING);
+                break;
+            default:
                 break;
         }
 
@@ -101,9 +110,9 @@ public class MapController : MonoBehaviour {
     {
         //Pick a random player from the list
         _assassin = Players[Random.Range(0, Players.Count)];
+        Debug.Log(_assassin.Name);
         SetMapTheme(_assassin.PlayerColor);
-        if (OnAssasinChange != null)
-            OnAssasinChange(_assassin);
+
     }
 
     public void SetMapTheme(Color color)
@@ -138,5 +147,20 @@ public class MapController : MonoBehaviour {
         float ramdomPoint2 = b * RADIUS * Mathf.Cos(2 * Mathf.PI * a / b);
 
         return new Vector3(randomPoint1, ramdomPoint2, 0);
+    }
+
+    public float GetActiveTime()
+    {
+        return (Time.time - _changedTime) / (_changeRoomState - _changedTime);
+    }
+
+    public Color GetActualColor()
+    {
+        return _actualColor;
+    }
+
+    public string GetActualText()
+    {
+        return _actualText;
     }
 }
