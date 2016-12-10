@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Participant : MonoBehaviour {
 
     public string Name;
     public const float SPEED = 5f;
+    public const float ASSASSIN_PENALIZATION_SPPED = 1.5f;
     public const float MAX_HEALTH = 100f;
     public Cannon Cannon;
     public Color PlayerColor;
@@ -13,6 +13,9 @@ public class Participant : MonoBehaviour {
     public delegate void ParticipantMethod(Participant participant);
     public static event ParticipantMethod OnPlayerDead;
     public static event ParticipantMethod OnPlayerHurt;
+    private float _actualSpeed;
+
+    private Participant _target;
 
 	// Use this for initialization
 	void Start () {
@@ -43,16 +46,17 @@ public class Participant : MonoBehaviour {
 
     public void MoveForward()
     {
-        transform.Translate(Vector3.right * SPEED * Time.deltaTime);
+        transform.Translate(Vector3.right * _actualSpeed * Time.deltaTime);
     }
 
     public void MoveBack()
     {
-        transform.Translate(Vector3.left * SPEED * Time.deltaTime);
+        transform.Translate(Vector3.left * _actualSpeed * Time.deltaTime);
     }
 
     public void GetHurt(float dmg)
     {
+        
         Health -= dmg;
         if (OnPlayerHurt != null)
             OnPlayerHurt(this);
@@ -70,6 +74,7 @@ public class Participant : MonoBehaviour {
     public void OnAssasinChange(Participant participant)
     {
         Cannon.CanFire = participant.Equals(this);
+        _actualSpeed = participant.Equals(this) ? SPEED - ASSASSIN_PENALIZATION_SPPED : SPEED;
     }
 
 }

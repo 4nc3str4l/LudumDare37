@@ -6,7 +6,7 @@ public class MapController : MonoBehaviour {
     public static MapController Instance;
 
     private SpriteRenderer _background;
-    private List<Participant> _players;
+    public List<Participant> Players;
     public Participant Assassin
     {
         get
@@ -33,7 +33,7 @@ public class MapController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        _players = new List<Participant>();
+        Players = new List<Participant>();
         _mapComponents = new List<SpriteRenderer>();
         _background = GameObject.Find("Background").GetComponent<SpriteRenderer>();
         Participant.OnPlayerDead += OnParticipantDead;
@@ -41,7 +41,7 @@ public class MapController : MonoBehaviour {
 
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
         {
-            _players.Add(go.GetComponent<Participant>());
+            Players.Add(go.GetComponent<Participant>());
         }
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("MapComponent"))
         {
@@ -68,7 +68,7 @@ public class MapController : MonoBehaviour {
     public void SetAssassin()
     {
         //Pick a random player from the list
-        _assassin = _players[Random.Range(0, _players.Count)];
+        _assassin = Players[Random.Range(0, Players.Count)];
         SetMapTheme(_assassin.PlayerColor);
         Debug.Log(_assassin.Name);
         if (OnAssasinChange != null)
@@ -86,6 +86,6 @@ public class MapController : MonoBehaviour {
 
     public void OnParticipantDead(Participant participant)
     {
-        _players.Remove(participant);
+        Players.Remove(participant);
     }
 }

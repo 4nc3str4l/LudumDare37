@@ -18,7 +18,6 @@ public class InputHandler : MonoBehaviour {
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg));
 
 
-
         if (Input.GetKey(KeyCode.W))
         {
             _participant.MoveForward();
