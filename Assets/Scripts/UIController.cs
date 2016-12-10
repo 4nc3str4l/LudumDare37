@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
 
 
     public static UIController Instance;
     public GameObject PlayerHealthPrefab;
+    public Text DialogText;
 
     void Awake()
     {
@@ -29,5 +30,18 @@ public class UIController : MonoBehaviour {
     {
         GameObject playerHealth = GameObject.Instantiate(PlayerHealthPrefab, transform) as GameObject;
         playerHealth.GetComponent<PlayerHealth>().Player = player;
+    }
+
+    public void HideAllRoomDialogs()
+    {
+        DialogText.enabled = false;
+    }
+
+    public void ShowMessage(string message, Color color)
+    {
+        DialogText.enabled = true;
+        DialogText.text = message;
+        DialogText.color = color;
+        OctaRoom.Instance.SetColor(color);
     }
 }

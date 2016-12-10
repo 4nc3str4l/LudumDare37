@@ -31,9 +31,10 @@ public class PlayerHealth : MonoBehaviour {
 
     public void OnPlayerDead(Participant player)
     {
-
         if (player.gameObject.Equals(Player.gameObject))
         {
+            Participant.OnPlayerHurt -= OnPlayerGetsHurted;
+            Participant.OnPlayerDead -= OnPlayerDead;
             Destroy(gameObject);
         }
     }

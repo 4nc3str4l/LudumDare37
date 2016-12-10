@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour {
             new Vector3(transform.position.x + Random.Range(-0.1f, 0.1f),
                         transform.position.y + Random.Range(-0.1f, 0.1f),
                         transform.position.z), transform.rotation) as GameObject;
-        particle.GetComponent<ProjectileParticle>().Initialize(_color);
+        particle.GetComponent<ProjectileParticle>().Initialize(Color.white);
         _nextParticleTrow = Time.time + Random.Range(0.01f, 0.03f);
     }
 
@@ -41,7 +41,7 @@ public class Projectile : MonoBehaviour {
         if(collision.collider.tag == "Player")
         {
             collision.collider.GetComponent<Participant>().GetHurt(DMG);
-            collision.collider.transform.position = collision.collider.transform.position + transform.forward * Random.Range(5f, 20f);
+            collision.collider.transform.position = collision.collider.transform.position + transform.right * Random.Range(0f, 0.5f);
         }
         Destroy(this.gameObject);
     }

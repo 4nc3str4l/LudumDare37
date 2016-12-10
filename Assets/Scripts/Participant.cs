@@ -9,12 +9,13 @@ public class Participant : MonoBehaviour {
     public Cannon Cannon;
     public Color PlayerColor;
     public float Health = MAX_HEALTH;
+    public GameObject ParticlePrefab;
 
     public delegate void ParticipantMethod(Participant participant);
     public static event ParticipantMethod OnPlayerDead;
     public static event ParticipantMethod OnPlayerHurt;
     private float _actualSpeed;
-
+    private float _nextParticleTrow = 0;
     private Participant _target;
 
 	// Use this for initialization
@@ -28,6 +29,9 @@ public class Participant : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+
+        if (_nextParticleTrow < Time.time)
+            CreateParticle();
     }
 
     public void Shoot()
@@ -37,12 +41,12 @@ public class Participant : MonoBehaviour {
 
     public void TurnLeft()
     {
-        transform.Rotate(new Vector3(0, 0, 1) * 360 * Time.deltaTime);
+        transform.Translate(Vector3.up * _actualSpeed * Time.deltaTime);
     }
 
     public void TurnRight()
     {
-        transform.Rotate(new Vector3(0, 0, -1) * 360 * Time.deltaTime);
+        transform.Translate(Vector3.down * _actualSpeed * Time.deltaTime);
     }
 
     public void MoveForward()
@@ -74,8 +78,24 @@ public class Participant : MonoBehaviour {
 
     public void OnAssasinChange(Participant participant)
     {
+        if (participant == null)
+        {
+            Cannon.CanFire = false;
+            return;
+        }
         Cannon.CanFire = participant.Equals(this);
         _actualSpeed = participant.Equals(this) ? SPEED - ASSASSIN_PENALIZATION_SPPED : SPEED;
+    }
+   
+
+    void CreateParticle()
+    {
+        GameObject particle = GameObject.Instantiate(ParticlePrefab,
+            new Vector3(transform.position.x + Random.Range(-0.1f, 0.1f),
+                        transform.position.y + Random.Range(-0.1f, 0.1f),
+                        transform.position.z), transform.rotation) as GameObject;
+        particle.GetComponent<ProjectileParticle>().Initialize(PlayerColor, 0.6f);
+        _nextParticleTrow = Time.time + Random.Range(0.01f, 0.03f);
     }
 
 }

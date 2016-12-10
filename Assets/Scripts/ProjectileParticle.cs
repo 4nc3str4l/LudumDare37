@@ -14,9 +14,9 @@ public class ProjectileParticle : MonoBehaviour {
 	
 	}
 
-    internal void Initialize(Color color)
+    internal void Initialize(Color color, float destroyTime = 0.1f)
     {
-        //GetComponent<SpriteRenderer>().color = color;
-        Destroy(gameObject, 0.1f);   
+        GetComponent<SpriteRenderer>().color = color;
+        Destroy(gameObject, destroyTime);   
     }
 }

@@ -14,6 +14,9 @@ public class AIPlayer : MonoBehaviour {
 
     private Participant _killingParticipant;
 
+    private float _changeRandomSpotTime;
+    private Vector3 _destination;
+
 	// Use this for initialization
 	void Start () {
         _participant = GetComponent<Participant>();
@@ -42,7 +45,6 @@ public class AIPlayer : MonoBehaviour {
         switch (_actualState)
         {
             case STATE.HUNTING:
-                Debug.Log("Hunting!!!");
                 Hunting();
                 break;
             case STATE.KILLING:
@@ -89,14 +91,18 @@ public class AIPlayer : MonoBehaviour {
             {
                 _participant.TurnRight();
             }
-
-            Debug.Log("Closest Distance To participant" + closestDistanceParticipant.Value.Name + " Distance: " + closestDistanceParticipant.Key);
             _participant.MoveForward();
         }
     }
 
     public void Killing()
     {
+        if (_killingParticipant == null)
+        {
+            _actualState = STATE.HUNTING;
+            return;
+        }
+            
         if(Vector3.Distance(transform.position, _killingParticipant.transform.position) > MAX_KILL_DISTANCE)
         {
             _killingParticipant = null;
@@ -114,12 +120,20 @@ public class AIPlayer : MonoBehaviour {
 
     public void VictimBehaivour()
     {
-        _participant.Shoot();
-        if (DetectMapBoundsDistance() < 20f)
+        if(Vector3.Distance(transform.position, _destination) < 1f || _changeRandomSpotTime < Time.time)
         {
-            _participant.TurnLeft();
+            ChangeDestinationAndLookAtIt();
         }
+
         _participant.MoveForward();
+    }
+
+    public void ChangeDestinationAndLookAtIt()
+    {
+        _destination = MapController.GenerateRandomPointInsideMap();
+        _changeRandomSpotTime = Time.time + Random.Range(1, 3);
+        var dir = _destination - transform.position;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg));
     }
 
     public float DetectMapBoundsDistance()
@@ -137,7 +151,12 @@ public class AIPlayer : MonoBehaviour {
 
     public void OnAssassinChanged(Participant participant)
     {
-        _globalState = participant.gameObject == gameObject ? GLOBAL_STATE.ASSASSIN : GLOBAL_STATE.VICTIM;
+        if (participant == null)
+        {
+            _globalState = GLOBAL_STATE.VICTIM;
+            return;
+        }
+        _globalState = participant.Name == _participant.Name ? GLOBAL_STATE.ASSASSIN : GLOBAL_STATE.VICTIM;
     }
 
     public void OnPlayerDeath(Participant participant)
