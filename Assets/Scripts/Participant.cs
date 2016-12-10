@@ -18,10 +18,14 @@ public class Participant : MonoBehaviour {
     private float _nextParticleTrow = 0;
     private Participant _target;
 
+    void Awake()
+    {
+        PlayerColor = this.GetComponent<SpriteRenderer>().color;
+    }
+
 	// Use this for initialization
 	void Start () {
         UIController.Instance.CreateHealthController(this);
-        PlayerColor = this.GetComponent<SpriteRenderer>().color;
         MapController.OnAssasinChange += OnAssasinChange;
 
     }

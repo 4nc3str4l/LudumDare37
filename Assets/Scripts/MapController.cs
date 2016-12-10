@@ -91,6 +91,7 @@ public class MapController : MonoBehaviour {
                 _actualColor = Color.white;
                 _changeRoomState = Time.time + 3f;
                 _changedTime = Time.time;
+                SetMapTheme(_actualColor);
                 UITimeController.Instance.ChangeData();
                 ChangeRoomState(MAP_STATE.WAITING);
                 break;

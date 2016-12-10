@@ -76,6 +76,7 @@
     <Compile Include="Assets\OctaRoom.cs" />
     <Compile Include="Assets\OverlayText.cs" />
     <Compile Include="Assets\ParticleEmiter.cs" />
+    <Compile Include="Assets\PlayerInfo.cs" />
     <Compile Include="Assets\Scripts\AIPlayer.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Cannon.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\ProjectileParticle.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />
+    <Compile Include="Assets\UIInGameInfo.cs" />
     <Compile Include="Assets\UITimeController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
