@@ -17,6 +17,7 @@ public class Participant : MonoBehaviour {
     private float _actualSpeed;
     private float _nextParticleTrow = 0;
     private Participant _target;
+    private bool _isAsssasin = false;
 
     void Awake()
     {
@@ -38,9 +39,14 @@ public class Participant : MonoBehaviour {
             CreateParticle();
     }
 
-    public void Shoot()
+    public void PrincipalSkill()
     {
         Cannon.Shoot();
+    }
+
+    public void SecondarySkill()
+    {
+
     }
 
     public void TurnLeft()
@@ -84,11 +90,13 @@ public class Participant : MonoBehaviour {
     {
         if (participant == null)
         {
+            _isAsssasin = false;
             Cannon.CanFire = false;
             return;
         }
         Cannon.CanFire = participant.Equals(this);
         _actualSpeed = participant.Equals(this) ? SPEED - ASSASSIN_PENALIZATION_SPPED : SPEED;
+        _isAsssasin = participant.Equals(this);
     }
    
 

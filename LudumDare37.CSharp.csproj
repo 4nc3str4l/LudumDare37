@@ -72,25 +72,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\BasePowerUP.cs" />
-    <Compile Include="Assets\OctaRoom.cs" />
-    <Compile Include="Assets\OverlayText.cs" />
-    <Compile Include="Assets\ParticleEmiter.cs" />
-    <Compile Include="Assets\PlayerInfo.cs" />
-    <Compile Include="Assets\Scripts\AIPlayer.cs" />
-    <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\Cannon.cs" />
-    <Compile Include="Assets\Scripts\GameController.cs" />
-    <Compile Include="Assets\Scripts\InputHandler.cs" />
-    <Compile Include="Assets\Scripts\JukeBox.cs" />
-    <Compile Include="Assets\Scripts\MapController.cs" />
-    <Compile Include="Assets\Scripts\Participant.cs" />
-    <Compile Include="Assets\Scripts\PlayerHealth.cs" />
-    <Compile Include="Assets\Scripts\Projectile.cs" />
-    <Compile Include="Assets\Scripts\ProjectileParticle.cs" />
-    <Compile Include="Assets\Scripts\UIController.cs" />
-    <Compile Include="Assets\UIInGameInfo.cs" />
-    <Compile Include="Assets\UITimeController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\InputHandler.cs" />
+    <Compile Include="Assets\Scripts\Controllers\JukeBox.cs" />
+    <Compile Include="Assets\Scripts\Controllers\MapController.cs" />
+    <Compile Include="Assets\Scripts\Entities\AIPlayer.cs" />
+    <Compile Include="Assets\Scripts\Entities\Cannon.cs" />
+    <Compile Include="Assets\Scripts\Entities\OctaRoom.cs" />
+    <Compile Include="Assets\Scripts\Entities\Participant.cs" />
+    <Compile Include="Assets\Scripts\Entities\ParticleEmiter.cs" />
+    <Compile Include="Assets\Scripts\Entities\Projectile.cs" />
+    <Compile Include="Assets\Scripts\Entities\ProjectileParticle.cs" />
+    <Compile Include="Assets\Scripts\Skills\BasePowerUP.cs" />
+    <Compile Include="Assets\Scripts\UI\OverlayText.cs" />
+    <Compile Include="Assets\Scripts\UI\PlayerHealth.cs" />
+    <Compile Include="Assets\Scripts\UI\PlayerInfo.cs" />
+    <Compile Include="Assets\Scripts\UI\UIController.cs" />
+    <Compile Include="Assets\Scripts\UI\UIInGameInfo.cs" />
+    <Compile Include="Assets\Scripts\UI\UITimeController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

@@ -112,7 +112,7 @@ public class AIPlayer : MonoBehaviour {
         {
             var dir = (_killingParticipant.transform.position + new Vector3(Random.Range(-0.6f, 0.6f), Random.Range(-0.6f, 0.6f), transform.position.z) + _killingParticipant.transform.right) - transform.position;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg));
-            _participant.Shoot();
+            _participant.PrincipalSkill();
             _participant.MoveForward();
             Hunting();
         }

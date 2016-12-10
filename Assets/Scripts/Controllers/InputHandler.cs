@@ -40,7 +40,7 @@ public class InputHandler : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1"))
         {
-            _participant.Shoot();
+            _participant.PrincipalSkill();
         }
     }
 }
