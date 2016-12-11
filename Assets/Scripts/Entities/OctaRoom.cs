@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class OctaRoom : MonoBehaviour {
 
-    public const float DROP_RATE = 1f;
+    public const float DROP_RATE = 10;
     public GameObject PowerUpPrefab;
     public static OctaRoom Instance;
     private Image _image;
@@ -36,7 +36,7 @@ public class OctaRoom : MonoBehaviour {
         BasePowerUP pu = powerUp.GetComponent<BasePowerUP>();
         pu.Initialize();
         ActivePowerUps.Add(pu);
-        _nextDropTime = Time.time + DROP_RATE + Random.Range(0, 10);
+        _nextDropTime = Time.time + DROP_RATE + Random.Range(0, 10) * (5 - MapController.Instance.Players.Count);
     }
 
     public void SetColor(Color color)

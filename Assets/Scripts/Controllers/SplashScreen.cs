@@ -16,7 +16,12 @@ public class SplashScreen : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         _originalBackgroundColor = Background.color;
-        PlayerPrefs.SetInt("Difficulty", 0);
+        if(!PlayerPrefs.HasKey("Difficulty"))
+            PlayerPrefs.SetInt("Difficulty", 0);
+        else
+        {
+            DificultySlider.value = PlayerPrefs.GetInt("Difficulty");
+        }
     }
 	
 	// Update is called once per frame

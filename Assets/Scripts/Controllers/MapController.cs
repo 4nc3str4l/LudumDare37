@@ -176,18 +176,7 @@ public class MapController : MonoBehaviour {
     /// <returns></returns>
     public static Vector3 GenerateRandomPointInsideMap()
     {
-        float aux = Random.Range(0, 1f);
-        float b = Random.Range(0, 1f);
-        float a = Mathf.Max(aux, b);
-        b = Mathf.Min(aux, b);
-        float randomPoint1 = b * RADIUS * Mathf.Cos(2 * Mathf.PI * a / b);
-
-        aux = Random.Range(0, 1f);
-        b = Random.Range(0, 1f);
-        a = Mathf.Max(aux, b);
-        float ramdomPoint2 = b * RADIUS * Mathf.Cos(2 * Mathf.PI * a / b);
-
-        return new Vector3(randomPoint1, ramdomPoint2, 0);
+        return new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), Random.Range(-5f, 5f));
     }
 
     public float GetActiveTime()

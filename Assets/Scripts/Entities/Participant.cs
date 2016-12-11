@@ -229,7 +229,21 @@ public class Participant : MonoBehaviour {
         Cannon.CanFire = participant.Equals(this);
         Minigun.CanFire = participant.Equals(this);
 
-        _actualSpeed = participant.Equals(this) ? SPEED - ASSASSIN_PENALIZATION_SPPED : SPEED;
+        int dificulty = PlayerPrefs.GetInt("Difficulty");
+
+        if (dificulty == 5)
+        {
+            _actualSpeed = participant.Equals(this) ? SPEED + ASSASSIN_PENALIZATION_SPPED : SPEED;
+        }
+        else if(dificulty == 4 || dificulty == 3)
+        {
+            _actualSpeed = SPEED;
+        }
+        else
+        {
+            _actualSpeed = participant.Equals(this) ? SPEED - ASSASSIN_PENALIZATION_SPPED : SPEED;
+        }
+        
         _isAsssasin = participant.Equals(this);
         if (_isAsssasin)
         {

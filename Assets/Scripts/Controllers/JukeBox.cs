@@ -17,6 +17,10 @@ public class JukeBox : MonoBehaviour {
     {
         Instance = this;
         _audioSource = GetComponent<AudioSource>();
+        if (PlayerPrefs.HasKey("Volume")) {
+            VolumeSlider.value = PlayerPrefs.GetFloat("Volume");
+            MasterVolume = PlayerPrefs.GetFloat("Volume");
+        }
     }
 
 	// Use this for initialization
@@ -52,7 +56,7 @@ public class JukeBox : MonoBehaviour {
 
     public void OnVolumeChange()
     {
+        PlayerPrefs.SetFloat("Volume", VolumeSlider.value);
         MasterVolume = VolumeSlider.value;
-        Debug.Log("Volume Changed" + MasterVolume);
     }
 }

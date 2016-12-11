@@ -9,7 +9,7 @@ namespace Assets.Scripts.Skills.Bonus
 
         public CooldownBonus(Participant participant) : base(participant)
         {
-            _timeOut = Time.time + 5f;
+            _timeOut = Time.time + 15f;
         }
 
         public override void ActivateBonus()

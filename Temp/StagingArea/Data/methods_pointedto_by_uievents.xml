@@ -1,0 +1,17 @@
+<linker>
+	<assembly fullname="Assembly-CSharp">
+		<type fullname="SplashScreen">
+			<method name="OnDificultyChange"/>
+			<method name="GoToGame"/>
+		</type>
+		<type fullname="JukeBox">
+			<method name="OnVolumeChange"/>
+		</type>
+		<type fullname="GameOverScreen">
+			<method name="GoToGame"/>
+			<method name="MainMenu"/>
+			<method name="GoToGame"/>
+			<method name="MainMenu"/>
+		</type>
+	</assembly>
+</linker>
