@@ -14,6 +14,7 @@ public class UIInGameInfo : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        deadCounter = 0;
         _deadPlayers = new List<PlayerInfo>();
 
         Participant.OnPlayerHurt += OnPlayerChange;
@@ -39,6 +40,7 @@ public class UIInGameInfo : MonoBehaviour {
 
         foreach (PlayerInfo pInf in _deadPlayers)
         {
+            if (pInf == null) continue;
             pInf.transform.SetParent(null);
             pInf.transform.SetParent(transform);
         }

@@ -23,7 +23,7 @@ public class Cannon : MonoBehaviour {
         if (!CanFire || _nextShot > Time.time) return;
         GameObject go = GameObject.Instantiate(ProjectilePrefab, this.transform.position, this.transform.rotation) as GameObject;
         go.GetComponent<Projectile>().SetOwner(player);
-        JukeBox.Instance.PlaySound(JukeBox.SOUNDS.SHOOT);
+        JukeBox.Instance.PlaySound(JukeBox.SOUNDS.Misile);
         _nextShot = Time.time + FIRE_SPEED;
     }
 }

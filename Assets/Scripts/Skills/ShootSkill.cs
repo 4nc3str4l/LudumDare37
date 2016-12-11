@@ -9,7 +9,7 @@ namespace Assets.Scripts.Skills
         {
             _executionRate = 0.5f;
             _uiImage = null;
-            _name = "Proton Cannon";
+            Name = "Proton Cannon";
         }
 
         public override bool Execute(Participant participant)
@@ -18,6 +18,7 @@ namespace Assets.Scripts.Skills
             {
                 participant.ShootCannon();
                 _nextExecution = Time.time + _executionRate;
+                _lastFired = Time.time;
                 return true;
             }
             return false;

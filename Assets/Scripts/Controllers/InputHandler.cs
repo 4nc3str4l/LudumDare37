@@ -24,11 +24,6 @@ public class InputHandler : MonoBehaviour {
             _participant.MoveForward();
         }
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            _participant.TurnLeft();
-        }
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _participant.SpecialSkill();
@@ -37,11 +32,6 @@ public class InputHandler : MonoBehaviour {
         if (Input.GetKey(KeyCode.S))
         {
             _participant.MoveBack();
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            _participant.TurnRight();
         }
 
         if (Input.GetButtonDown("Fire1"))

@@ -7,9 +7,10 @@ namespace Assets.Scripts.Skills
     {
         protected Participant _participant;
         protected Image _uiImage;
-        protected string _name;
+        public string Name;
         protected float _executionRate;
         protected float _nextExecution;
+        protected float _lastFired;
 
         public Skill(Participant player)
         {
@@ -19,6 +20,11 @@ namespace Assets.Scripts.Skills
         public bool CanBeFired()
         {
             return Time.time > _nextExecution;
+        }
+
+        public float GetFillAmount()
+        {
+            return (Time.time - _lastFired) / (_nextExecution - _lastFired);
         }
 
         public abstract void Update();

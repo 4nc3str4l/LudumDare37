@@ -61,14 +61,14 @@ public class SplashScreen : MonoBehaviour {
         if(difficulty == DificultySlider.maxValue)
         {
             Background.color = color;
-            Apocalipsis.active = true;
-            ApicalipsisPlayers.active = true;
+            Apocalipsis.SetActive(true);
+            ApicalipsisPlayers.SetActive(true);
         }
         else
         {
             Background.color = _originalBackgroundColor;
-            Apocalipsis.active = false;
-            ApicalipsisPlayers.active = false;
+            Apocalipsis.SetActive(false);
+            ApicalipsisPlayers.SetActive(false);
         }
     }
 }

@@ -6,8 +6,11 @@ public class UIController : MonoBehaviour {
 
 
     public static UIController Instance;
-    public GameObject PlayerHealthPrefab, OverlayText, FloatingText;
+    public GameObject PlayerHealthPrefab, OverlayText, FloatingText, FadingText;
     public Text DialogText;
+    public SkillPanel Skill1, Skill2, Special;
+
+    public Sprite Octa, Pinky, Cyano, Lemon, Bloody;
 
     void Awake()
     {
@@ -61,5 +64,12 @@ public class UIController : MonoBehaviour {
         GameObject txtOverlay = GameObject.Instantiate(FloatingText, transform) as GameObject;
         FloatingText floatingText = txtOverlay.GetComponent<FloatingText>();
         floatingText.Initialize(color, text, position);
+    }
+
+    internal void CreateFadingPanel(string text, Color color, Sprite image)
+    {
+        GameObject txtOverlay = GameObject.Instantiate(FadingText, transform) as GameObject;
+        FadingPanel floatingText = txtOverlay.GetComponent<FadingPanel>();
+        floatingText.Init(image, color, text);
     }
 }

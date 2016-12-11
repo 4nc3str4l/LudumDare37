@@ -125,11 +125,28 @@ public class AIPlayer : MonoBehaviour {
         }
         else
         {
-            var dir = (_killingParticipant.transform.position + new Vector3(Random.Range(-0.6f, 0.6f), Random.Range(-0.6f, 0.6f), transform.position.z) + _killingParticipant.transform.right) - transform.position;
+            var dir = Vector3.zero;
+            float distanceToTarget = Vector3.Distance(_killingParticipant.transform.position, transform.position);
+            if (distanceToTarget < 2)
+            {
+                dir = (_killingParticipant.transform.position - transform.position);
+            }
+            else
+            {
+                dir = (_killingParticipant.transform.position + new Vector3(Random.Range(-0.6f, 0.6f), Random.Range(-0.6f, 0.6f), transform.position.z) + _killingParticipant.transform.right) - transform.position;
+            }
+
+
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg));
+
+            if (distanceToTarget > 1)
+            {
+                _participant.MoveForward();
+            }
+
             _participant.PrincipalSkill();
             _participant.SecondarySkill();
-            _participant.MoveForward();
+            
             Hunting();
         }
     }

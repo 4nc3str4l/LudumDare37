@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 public class JukeBox : MonoBehaviour {
 
-    public enum SOUNDS { SHOOT }
+    public enum SOUNDS { BloodyTime, CyanoTime, Dead, Impact, LaserShoot, LemonidasTime, LetMeThink, Misile, PinkyTime, Teleport, Welcome, YouWin, Speed, Invencible, ExplosionDie, LemoDies, PinkyDies, CyaniDies, BloodyDies }
     public static JukeBox Instance;
     private AudioSource _audioSource;
-    public AudioClip ShootSound;
+    public AudioClip BloodyTime, CyanoTime, Dead, Impact, LaserShoot, LemonidasTime, LetMeThink, Misile, PinkyTime, Teleport, Welcome, YouWin, Speed, Invencible, ExplosionDie, LemoDies, PinkyDies, CyaniDies, BloodyDies;
     public Dictionary<SOUNDS, AudioClip> _loadedSounds;
 
     void Awake()
@@ -19,12 +19,30 @@ public class JukeBox : MonoBehaviour {
 	void Start () {
         _loadedSounds = new Dictionary<SOUNDS, AudioClip>()
         {
-            { SOUNDS.SHOOT, ShootSound },
+            { SOUNDS.BloodyTime, BloodyTime },
+            { SOUNDS.CyanoTime, CyanoTime },
+            { SOUNDS.Dead, Dead },
+            { SOUNDS.Impact, Impact },
+            { SOUNDS.LaserShoot, LaserShoot },
+            { SOUNDS.LemonidasTime, LemonidasTime },
+            { SOUNDS.LetMeThink, LetMeThink },
+            { SOUNDS.Misile, Misile },
+            { SOUNDS.PinkyTime, PinkyTime },
+            { SOUNDS.Teleport, Teleport },
+            { SOUNDS.Welcome, Welcome },
+            { SOUNDS.YouWin, YouWin },
+            { SOUNDS.Invencible, Invencible },
+            { SOUNDS.Speed, Speed },
+            { SOUNDS.ExplosionDie, ExplosionDie },
+            { SOUNDS.LemoDies, LemoDies },
+            { SOUNDS.PinkyDies, PinkyDies },
+            { SOUNDS.CyaniDies, CyaniDies },
+            { SOUNDS.BloodyDies, BloodyDies },
         };
 	}
 	
-    public void PlaySound(SOUNDS sound)
+    public void PlaySound(SOUNDS sound, float volume = 0.3f)
     {
-        _audioSource.PlayOneShot(_loadedSounds[sound]);
+        _audioSource.PlayOneShot(_loadedSounds[sound], volume);
     }
 }

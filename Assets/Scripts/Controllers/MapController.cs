@@ -18,7 +18,7 @@ public class MapController : MonoBehaviour {
     public const float MAP_HEIGHT = 10;
     public const float OFFSET = 0.5f;
 
-    public const float RADIUS = 14.3f;
+    public const float RADIUS = 12f;
 
     private List<SpriteRenderer> _mapComponents;
 
@@ -74,19 +74,36 @@ public class MapController : MonoBehaviour {
                 {
                     SetAssassin();
                     UIController.Instance.ShowMessage("OCTAROOM SAYS: THE KILLER IS " + _assassin.Name, _assassin.PlayerColor);
+                    switch (_assassin.Name)
+                    {
+                        case "Bloody":
+                            JukeBox.Instance.PlaySound(JukeBox.SOUNDS.BloodyTime, 1f);
+                            break;
+                        case "Pinkie":
+                            JukeBox.Instance.PlaySound(JukeBox.SOUNDS.PinkyTime, 1f);
+                            break;
+                        case "Cyanisaurious":
+                            JukeBox.Instance.PlaySound(JukeBox.SOUNDS.CyanoTime, 1f);
+                            break;
+                        case "Lemonidas":
+                            JukeBox.Instance.PlaySound(JukeBox.SOUNDS.LemonidasTime, 1f);
+                            break;
+                    }
+                    
                     _actualText = _assassin.Name;
                     _actualColor = _assassin.PlayerColor;
                     _changeRoomState = Time.time + MIN_ASSASIN_TIME + Random.Range(0, 10f);
                     _changedTime = Time.time;
                     ChangeRoomState(MAP_STATE.PLAYING);
                     UITimeController.Instance.ChangeData();
-                    Debug.Log(_assassin.Name);
+
                     if (OnAssasinChange != null)
                         OnAssasinChange(_assassin);
                 }
                 break;
             case MAP_STATE.CHOOSING:
                 UIController.Instance.ShowMessage("OCTAROOM SAYS: TIME TO CHOOSE A NEW KILLER...", Color.white);
+                JukeBox.Instance.PlaySound(JukeBox.SOUNDS.LetMeThink, 1f);
                 _actualText = "Thinking...";
                 foreach (Participant participant in Players)
                     participant.Heal(10f);

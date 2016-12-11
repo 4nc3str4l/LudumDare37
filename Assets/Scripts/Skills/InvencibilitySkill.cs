@@ -9,7 +9,7 @@ namespace Assets.Scripts.Skills
         {
             _executionRate = 5f;
             _uiImage = null;
-            _name = "Invencibility";
+            Name = "Invencibility";
         }
 
         public override bool Execute(Participant participant)
@@ -17,8 +17,9 @@ namespace Assets.Scripts.Skills
             if (CanBeFired())
             {
                 InvencivibilityBonus speedBonus = new InvencivibilityBonus(participant);
+                JukeBox.Instance.PlaySound(JukeBox.SOUNDS.Invencible, 0.5f);
                 _nextExecution = Time.time + _executionRate;
-
+                _lastFired = Time.time;
                 return true;
             }
             return false;

@@ -9,7 +9,7 @@ namespace Assets.Scripts.Skills
         {
             _executionRate = 0.1f;
             _uiImage = null;
-            _name = "Minigun";
+            Name = "Minigun";
         }
 
         public override bool Execute(Participant participant)
@@ -18,6 +18,7 @@ namespace Assets.Scripts.Skills
             {
                 participant.ShootMinigun();
                 _nextExecution = Time.time + _executionRate;
+                _lastFired = Time.time;
                 return true;
             }
             return false;

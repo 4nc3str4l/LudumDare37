@@ -31,15 +31,15 @@ public class RadialParticleEmmiter : MonoBehaviour {
         }   
     }
 
-    public void CreateSomeParticles(Vector3 destination, int numberOfParticles, Color color)
+    public void CreateSomeParticles(Vector3 destination, int numberOfParticles, Color color, float duration)
     {
         for (int i = 0; i < numberOfParticles; i++)
         {
-            CreateParticle(color, true);
+            CreateParticle(color, true, duration);
         }
     }
 
-    void CreateParticle(Color color, bool canMove = false)
+    void CreateParticle(Color color, bool canMove = false, float duration = 0.3f)
     {
         GameObject particle = GameObject.Instantiate(ParticlePrefab,
             new Vector3(transform.position.x + Random.Range(-0.1f, 0.1f),

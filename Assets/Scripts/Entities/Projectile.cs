@@ -12,7 +12,7 @@ public class Projectile : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+        PlayerPrefs.SetInt("Difficulty", 0); 
 	}
 	
 	// Update is called once per frame

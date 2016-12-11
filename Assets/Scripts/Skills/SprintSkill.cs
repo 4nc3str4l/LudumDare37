@@ -9,16 +9,17 @@ namespace Assets.Scripts.Skills
         {
             _executionRate = 2f;
             _uiImage = null;
-            _name = "Sprint";
+            Name = "Sprint";
         }
 
         public override bool Execute(Participant participant)
         {
             if (CanBeFired())
             {
-                SpeedBonus speedBonus = new SpeedBonus(participant);
+                new SpeedBonus(participant);
+                JukeBox.Instance.PlaySound(JukeBox.SOUNDS.Speed, 0.5f);
                 _nextExecution = Time.time + _executionRate;
-
+                _lastFired = Time.time;
                 return true;
             }
             return false;

@@ -1,10 +1,23 @@
 fileFormatVersion: 2
 guid: 3885ebfe006bed24e867bad705d09f04
-timeCreated: 1481361312
+timeCreated: 1481469024
 licenseType: Pro
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - PlayerHealthPrefab: {instanceID: 0}
+  - OverlayText: {instanceID: 0}
+  - FloatingText: {instanceID: 0}
+  - FadingText: {instanceID: 0}
+  - DialogText: {instanceID: 0}
+  - Skill1: {instanceID: 0}
+  - Skill2: {instanceID: 0}
+  - Special: {instanceID: 0}
+  - Octa: {fileID: 21300000, guid: 9edf7ca87df02f74eba7eb1bf8afbf23, type: 3}
+  - Pinky: {fileID: 21300000, guid: ad4c6fb5ad6ef9543b4bb534940c70d0, type: 3}
+  - Cyano: {fileID: 21300000, guid: d1be480b47ef5214dbc4b439ab069eb5, type: 3}
+  - Lemon: {fileID: 21300000, guid: 1480999fa2449f743841ceee7003cec3, type: 3}
+  - Bloody: {fileID: 21300000, guid: 52a18cbc7615a8b46ab093b4cdaf5868, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

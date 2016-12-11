@@ -152,6 +152,7 @@ public class Participant : MonoBehaviour {
         if (_invencible) return;
         Health -= dmg;
         UIController.Instance.CreateFloatingText("-" + dmg.ToString(), Color.red, transform);
+        JukeBox.Instance.PlaySound(JukeBox.SOUNDS.Impact);
         if (OnPlayerHurt != null)
             OnPlayerHurt(this, dmg);
         if (Health <= 0)
@@ -164,7 +165,29 @@ public class Participant : MonoBehaviour {
         {
             GameController.GameOverLogic();
         }
-            
+
+
+        SpeedEmmiter.CreateSomeParticles(transform.position, 100, PlayerColor, 10);
+        JukeBox.Instance.PlaySound(JukeBox.SOUNDS.ExplosionDie, 0.5f);
+        switch (Name)
+        {
+            case "Bloody":
+                JukeBox.Instance.PlaySound(JukeBox.SOUNDS.BloodyDies, 1f);
+                UIController.Instance.CreateFadingPanel("Bloody Dies...", PlayerColor, UIController.Instance.Bloody);
+                break;
+            case "Pinkie":
+                JukeBox.Instance.PlaySound(JukeBox.SOUNDS.PinkyDies, 1f);
+                UIController.Instance.CreateFadingPanel("Pinkie Dies...", PlayerColor, UIController.Instance.Pinky);
+                break;
+            case "Cyanisaurious":
+                JukeBox.Instance.PlaySound(JukeBox.SOUNDS.CyaniDies, 1f);
+                UIController.Instance.CreateFadingPanel("Cyanisaurious Dies...", PlayerColor, UIController.Instance.Cyano);
+                break;
+            case "Lemonidas":
+                JukeBox.Instance.PlaySound(JukeBox.SOUNDS.LemoDies, 1f);
+                UIController.Instance.CreateFadingPanel("Lemonidas Dies...", PlayerColor, UIController.Instance.Lemon);
+                break;
+        }
         if (OnPlayerDead != null)
             OnPlayerDead(this);
         Destroy(gameObject);
@@ -197,17 +220,12 @@ public class Participant : MonoBehaviour {
    
     private void SetPacificSkills()
     {
-        try
+        _principalSkill = new SprintSkill(this);
+        _secondarySkill = new InvencibilitySkill(this);
+        if(Name == "Cyanisaurious")
         {
-            _principalSkill = new SprintSkill(this);
-            _secondarySkill = new InvencibilitySkill(this);
-            UIController.Instance.CreateFloatingText("Victim", Color.red, transform);
+            TrackSkills();
         }
-        catch (MissingReferenceException)
-        {
-            
-        }
-        
     }
 
     private void SetAgressiveSkills()
@@ -215,7 +233,20 @@ public class Participant : MonoBehaviour {
         _principalSkill = new ShootSkill(this);
         _secondarySkill = new MinigunSkill(this);
         UIController.Instance.CreateFloatingText("Killer", Color.yellow, transform);
+        if (Name == "Cyanisaurious")
+        {
+            TrackSkills();
+        }
     }
+
+    public void TrackSkills()
+    {
+        UIController.Instance.Skill1.SetTrackingSkill(_principalSkill);
+        UIController.Instance.Skill2.SetTrackingSkill(_secondarySkill);
+        UIController.Instance.Special.SetTrackingSkill(_specialSkill);
+    }
+
+
 
     void CreateParticle()
     {

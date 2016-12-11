@@ -9,20 +9,21 @@ namespace Assets.Scripts.Skills
         {
             _executionRate = 10f;
             _uiImage = null;
-            _name = "Teleport";
+            Name = "Teleport";
         }
 
         public override bool Execute(Participant participant)
         {
             if (CanBeFired())
             {
-                participant.SpeedEmmiter.CreateSomeParticles(participant.transform.position, 30, participant.PlayerColor);
+                participant.SpeedEmmiter.CreateSomeParticles(participant.transform.position, 30, participant.PlayerColor, 0.3f);
                 if (participant.GetComponent<InputHandler>() != null)
                     _participant.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 else
                     _participant.transform.position = MapController.GenerateRandomPointInsideMap();
                 _nextExecution = Time.time + _executionRate;
-
+                _lastFired = Time.time;
+                JukeBox.Instance.PlaySound(JukeBox.SOUNDS.Teleport, 1f);
                 return true;
             }
 
