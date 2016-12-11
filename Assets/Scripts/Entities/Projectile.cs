@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour {
     public GameObject ParticlePrefab;
     public Color _color;
 
-    public const float DMG = 13f;
+    public float DMG = 10f;
 
     private float _nextParticleTrow = 0;
 
@@ -26,6 +26,7 @@ public class Projectile : MonoBehaviour {
 
     void CreateParticle()
     {
+        if (ParticlePrefab == null) return;
         GameObject particle = GameObject.Instantiate(ParticlePrefab, 
             new Vector3(transform.position.x + Random.Range(-0.1f, 0.1f),
                         transform.position.y + Random.Range(-0.1f, 0.1f),
@@ -40,6 +41,7 @@ public class Projectile : MonoBehaviour {
 
         if(collision.collider.tag == "Player")
         {
+            if (collision.collider.GetComponent<Participant>().Invencible) return;
             collision.collider.GetComponent<Participant>().GetHurt(DMG);
             collision.collider.transform.position = collision.collider.transform.position + transform.right * Random.Range(0f, 0.5f);
         }

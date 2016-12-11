@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>WebGL:20</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -72,25 +74,42 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ConstantRotation.cs" />
+    <Compile Include="Assets\DeadLimit.cs" />
+    <Compile Include="Assets\EndPlayer.cs" />
+    <Compile Include="Assets\FloatingText.cs" />
+    <Compile Include="Assets\GameOverScreen.cs" />
     <Compile Include="Assets\Scripts\Controllers\CameraController.cs" />
     <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Scripts\Controllers\InputHandler.cs" />
     <Compile Include="Assets\Scripts\Controllers\JukeBox.cs" />
     <Compile Include="Assets\Scripts\Controllers\MapController.cs" />
     <Compile Include="Assets\Scripts\Entities\AIPlayer.cs" />
+    <Compile Include="Assets\Scripts\Entities\Minigun.cs" />
     <Compile Include="Assets\Scripts\Entities\Cannon.cs" />
     <Compile Include="Assets\Scripts\Entities\OctaRoom.cs" />
     <Compile Include="Assets\Scripts\Entities\Participant.cs" />
     <Compile Include="Assets\Scripts\Entities\ParticleEmiter.cs" />
     <Compile Include="Assets\Scripts\Entities\Projectile.cs" />
     <Compile Include="Assets\Scripts\Entities\ProjectileParticle.cs" />
+    <Compile Include="Assets\Scripts\Entities\RadialParticleEmmiter.cs" />
     <Compile Include="Assets\Scripts\Skills\BasePowerUP.cs" />
+    <Compile Include="Assets\Scripts\Skills\Bonus\InvencibilityBonus.cs" />
+    <Compile Include="Assets\Scripts\Skills\Bonus\PlayerBonus.cs" />
+    <Compile Include="Assets\Scripts\Skills\Bonus\SpeedBonus.cs" />
+    <Compile Include="Assets\Scripts\Skills\InvencibilitySkill.cs" />
+    <Compile Include="Assets\Scripts\Skills\MinigunSkill.cs" />
+    <Compile Include="Assets\Scripts\Skills\ShootSkill.cs" />
+    <Compile Include="Assets\Scripts\Skills\Skill.cs" />
+    <Compile Include="Assets\Scripts\Skills\SprintSkill.cs" />
+    <Compile Include="Assets\Scripts\Skills\TeleportSkill.cs" />
     <Compile Include="Assets\Scripts\UI\OverlayText.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerHealth.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerInfo.cs" />
     <Compile Include="Assets\Scripts\UI\UIController.cs" />
     <Compile Include="Assets\Scripts\UI\UIInGameInfo.cs" />
     <Compile Include="Assets\Scripts\UI\UITimeController.cs" />
+    <Compile Include="Assets\SplashScreen.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

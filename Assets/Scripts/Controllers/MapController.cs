@@ -88,6 +88,8 @@ public class MapController : MonoBehaviour {
             case MAP_STATE.CHOOSING:
                 UIController.Instance.ShowMessage("OCTAROOM SAYS: TIME TO CHOOSE A NEW KILLER...", Color.white);
                 _actualText = "Thinking...";
+                foreach (Participant participant in Players)
+                    participant.Heal(10f);
                 _actualColor = Color.white;
                 _changeRoomState = Time.time + 3f;
                 _changedTime = Time.time;
@@ -128,6 +130,11 @@ public class MapController : MonoBehaviour {
     public void OnParticipantDead(Participant participant)
     {
         Players.Remove(participant);
+        if (participant.IsThePlayer) return;
+        if (Players.Count == 1)
+        {
+            GameController.WinLogic();
+        }
     }
 
     /// <summary>

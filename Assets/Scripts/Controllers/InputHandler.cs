@@ -8,6 +8,7 @@ public class InputHandler : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         _participant = GetComponent<Participant>();
+        _participant.IsThePlayer = true;
 	}
 	
 	// Update is called once per frame
@@ -28,6 +29,11 @@ public class InputHandler : MonoBehaviour {
             _participant.TurnLeft();
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _participant.SpecialSkill();
+        }
+
         if (Input.GetKey(KeyCode.S))
         {
             _participant.MoveBack();
@@ -38,9 +44,14 @@ public class InputHandler : MonoBehaviour {
             _participant.TurnRight();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             _participant.PrincipalSkill();
+        }
+
+        if (Input.GetButton("Fire2"))
+        {
+            _participant.SecondarySkill();
         }
     }
 }

@@ -7,6 +7,7 @@ public class ParticleEmiter : MonoBehaviour {
     public GameObject ParticlePrefab;
     private float _nextParticleTrow = 0;
     
+
     // Use this for initialization
     void Start () {
 	

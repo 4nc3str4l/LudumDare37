@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using System;
 
 public class GameController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public static void GameOverLogic()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    internal static void WinLogic()
+    {
+        SceneManager.LoadScene(3);
+    }
 }

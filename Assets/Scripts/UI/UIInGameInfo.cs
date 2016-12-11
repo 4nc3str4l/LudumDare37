@@ -17,7 +17,7 @@ public class UIInGameInfo : MonoBehaviour {
         _deadPlayers = new List<PlayerInfo>();
 
         Participant.OnPlayerHurt += OnPlayerChange;
-        Participant.OnPlayerDead += OnPlayerChange;
+        Participant.OnPlayerDead += OnPlayerDie;
 
         PinkyInfo.Initialize(pPinky.Name, pPinky.Health, pPinky.PlayerColor);
         Lemonidas.Initialize(pLemin.Name, pLemin.Health, pLemin.PlayerColor);
@@ -49,7 +49,12 @@ public class UIInGameInfo : MonoBehaviour {
         _deadPlayers.Insert(0, newDeadPlayer);
     }
 
-    void OnPlayerChange(Participant player)
+    void OnPlayerDie(Participant player)
+    {
+        ResortListAndUpdateInfo();
+    }
+
+    void OnPlayerChange(Participant player, float ammount)
     {
         ResortListAndUpdateInfo();
     }

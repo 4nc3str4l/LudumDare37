@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour {
         this.transform.position = Camera.main.WorldToScreenPoint(Player.transform.position);
     }
 
-    public void OnPlayerGetsHurted(Participant player)
+    public void OnPlayerGetsHurted(Participant player, float ammount)
     {
         if (player.Equals(Player))
         {

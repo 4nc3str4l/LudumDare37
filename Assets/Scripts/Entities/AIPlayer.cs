@@ -22,8 +22,23 @@ public class AIPlayer : MonoBehaviour {
         _participant = GetComponent<Participant>();
         MapController.OnAssasinChange += OnAssassinChanged;
         Participant.OnPlayerDead += OnPlayerDeath;
-	}
+        Participant.OnPlayerHurt += OnPlayerHurt;
+    }
 	
+    public void OnPlayerHurt(Participant participant, float ammount)
+    {
+        if (participant.Name != _participant.Name) return;
+        if (ammount < 0) return;
+
+        if (!participant.SpecialSkill())
+        {
+            participant.PrincipalSkill();
+            participant.SecondarySkill();
+            
+        }
+        _destination = MapController.GenerateRandomPointInsideMap();
+    }
+
 	// Update is called once per frame
 	void Update () {
 
@@ -113,6 +128,7 @@ public class AIPlayer : MonoBehaviour {
             var dir = (_killingParticipant.transform.position + new Vector3(Random.Range(-0.6f, 0.6f), Random.Range(-0.6f, 0.6f), transform.position.z) + _killingParticipant.transform.right) - transform.position;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg));
             _participant.PrincipalSkill();
+            _participant.SecondarySkill();
             _participant.MoveForward();
             Hunting();
         }

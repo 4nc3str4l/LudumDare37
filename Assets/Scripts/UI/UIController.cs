@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
 
 
     public static UIController Instance;
-    public GameObject PlayerHealthPrefab, OverlayText;
+    public GameObject PlayerHealthPrefab, OverlayText, FloatingText;
     public Text DialogText;
 
     void Awake()
@@ -53,5 +54,12 @@ public class UIController : MonoBehaviour {
         DialogText.text = message;
         DialogText.color = color;
         OctaRoom.Instance.SetColor(color);
+    }
+
+    internal void CreateFloatingText(string text, Color color, Transform position)
+    {
+        GameObject txtOverlay = GameObject.Instantiate(FloatingText, transform) as GameObject;
+        FloatingText floatingText = txtOverlay.GetComponent<FloatingText>();
+        floatingText.Initialize(color, text, position);
     }
 }

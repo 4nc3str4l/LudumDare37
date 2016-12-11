@@ -39,6 +39,6 @@ public class PlayerInfo : MonoBehaviour {
 
     public void PlayerDeath()
     {
-        Background.color = new Color(Background.color.r, Background.color.g, Background.color.b, 0.2f);
+        Background.color = new Color(Background.color.r, Background.color.g, Background.color.b, 0.02f);
     }
 }
