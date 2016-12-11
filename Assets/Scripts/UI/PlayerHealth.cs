@@ -18,6 +18,14 @@ public class PlayerHealth : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (!Player.isVisible && !Player.IsThePlayer)
+        {
+            _image.enabled = false;
+        }
+        else
+        {
+            _image.enabled = true;
+        }
         this.transform.position = Camera.main.WorldToScreenPoint(Player.transform.position);
     }
 

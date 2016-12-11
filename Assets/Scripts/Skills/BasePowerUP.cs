@@ -11,36 +11,30 @@ public class BasePowerUP : MonoBehaviour {
     OverlayText t;
     Skill _skill;
 
-	// Use this for initialization
-	void Start () {
+    public void Initialize()
+    {
         t = UIController.Instance.CreateOverlayText(transform.position, Color, text);
-        switch (PowerUpType)
+        int randomNumber = Random.Range(0, 3);
+        switch (randomNumber)
         {
-            case POWER_UP_TYPE.HEALTH:
+            case 0:
                 _skill = new HealSkill();
                 break;
-            case POWER_UP_TYPE.INVISIBILITY:
-                break;
-            case POWER_UP_TYPE.SHIELD:
-                break;
-            case POWER_UP_TYPE.COOL_DOWN:
+            case 1:
                 _skill = new FasterCooldownSkill();
                 break;
-            default:
-                _skill = new HealSkill();
+            case 2:
+                _skill = new InvisibilitySkill();
                 break;
-                
+            default:
+                break;
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag != "Player") return;
+        Debug.Log(_skill.Name);
         _skill.Execute(collider.gameObject.GetComponent<Participant>());
         Destroy(t.gameObject);
         Destroy(gameObject);

@@ -114,7 +114,7 @@ public class AIPlayer : MonoBehaviour {
         {
             _participant.SpecialSkill();
         }
-        if (closestDistanceParticipant.Key < MAX_KILL_DISTANCE)
+        if (closestDistanceParticipant.Key < MAX_KILL_DISTANCE && closestDistanceParticipant.Value.isVisible)
         {
             _killingParticipant = closestDistanceParticipant.Value;
             _actualState = STATE.KILLING;
@@ -131,7 +131,7 @@ public class AIPlayer : MonoBehaviour {
 
     public void Killing()
     {
-        if (_killingParticipant == null)
+        if (_killingParticipant == null || !_killingParticipant.isVisible)
         {
             _actualState = STATE.HUNTING;
             return;
@@ -178,9 +178,11 @@ public class AIPlayer : MonoBehaviour {
                 _participant.MoveForward();
             }
 
-            _participant.PrincipalSkill();
-            _participant.SecondarySkill();
-            
+            if (_killingParticipant.isVisible)
+            {
+                _participant.PrincipalSkill();
+                _participant.SecondarySkill();
+            }
             Hunting();
         }
     }
