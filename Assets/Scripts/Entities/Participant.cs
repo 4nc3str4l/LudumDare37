@@ -36,10 +36,19 @@ public class Participant : MonoBehaviour {
 
     public bool IsThePlayer = false;
     public float CooldownBonus = 1f;
+    public float DamageBonus = 1f;
     public bool isVisible = true;
     private SpriteRenderer _spriteRenderer;
 
     public GameObject Halo;
+
+    public bool IsAssasin
+    {
+        get
+        {
+            return _isAsssasin;
+        }
+    }
 
     public bool Invencible
     {
@@ -177,9 +186,8 @@ public class Participant : MonoBehaviour {
     {
         if (IsThePlayer)
         {
-            GameController.GameOverLogic();
+            GameController.Instance.GameOverLogic();
         }
-
 
         SpeedEmmiter.CreateSomeParticles(transform.position, 100, PlayerColor, 10);
         JukeBox.Instance.PlaySound(JukeBox.SOUNDS.ExplosionDie, 0.5f);
@@ -202,6 +210,7 @@ public class Participant : MonoBehaviour {
                 UIController.Instance.CreateFadingPanel("Lemonidas Dies...", PlayerColor, UIController.Instance.Lemon);
                 break;
         }
+
         if (OnPlayerDead != null)
             OnPlayerDead(this);
         Destroy(gameObject);
@@ -282,8 +291,6 @@ public class Participant : MonoBehaviour {
     public void ChangeSpeed(float newSpeed)
     {
         _actualSpeed = newSpeed;
-        if(newSpeed > SPEED)
-                UIController.Instance.CreateFloatingText("+ Speed", Color.white, transform);
     }
 
     public void RemoveBonus(PlayerBonus bonus)

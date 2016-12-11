@@ -13,13 +13,13 @@ public class OverlayText : MonoBehaviour {
     void Start()
     {
         _image = GetComponent<Text>();
-        _image.color = color;
+        _image.color = Color.white;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        transform.position = Camera.main.WorldToScreenPoint(Position);
     }
 
 }

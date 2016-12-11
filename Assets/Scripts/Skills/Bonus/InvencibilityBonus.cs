@@ -14,7 +14,6 @@ namespace Assets.Scripts.Skills.Bonus
 
         public override void ActivateBonus()
         {
-            Debug.Log("Invencible");
             _participant.SetInvencible(true);
         }
 

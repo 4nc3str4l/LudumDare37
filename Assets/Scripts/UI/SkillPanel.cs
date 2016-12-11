@@ -25,7 +25,7 @@ public class SkillPanel : MonoBehaviour {
         if (_trackingSkill == null) return;
         float fillAmount = _trackingSkill.GetFillAmount();
         Filling.fillAmount = fillAmount;
-        Filling.color = fillAmount >= 1 ? _fullColor : _fillingColor;
+        Filling.color = _trackingSkill.CanBeFired() ? _fullColor : _fillingColor;
   
     }
 }

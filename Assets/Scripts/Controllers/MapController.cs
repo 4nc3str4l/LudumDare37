@@ -39,6 +39,8 @@ public class MapController : MonoBehaviour {
     private string _actualText;
     private Color _actualColor;
 
+    Participant _lastAssasin = null;
+
     void Awake()
     {
         if (Instance == null)
@@ -63,6 +65,11 @@ public class MapController : MonoBehaviour {
             _mapComponents.Add(go.GetComponent<SpriteRenderer>());
         }
 	}
+
+    void OnDestroy()
+    {
+        Participant.OnPlayerDead -= OnParticipantDead;
+    }
 
 	// Update is called once per frame
 	void Update () {
@@ -130,15 +137,16 @@ public class MapController : MonoBehaviour {
 
     public void ChangeRoomState(MAP_STATE newState)
     {
-        Debug.Log("Current Map State: " + newState);
         _currentMapState = newState;
     }
 
     public void SetAssassin()
     {
         //Pick a random player from the list
+        _lastAssasin = _assassin;
         _assassin = Players[Random.Range(0, Players.Count)];
-        Debug.Log(_assassin.Name);
+        if (_lastAssasin != null && _assassin.Name.Equals(_lastAssasin.Name))
+            SetAssassin();
         SetMapTheme(_assassin.PlayerColor);
 
     }
@@ -158,7 +166,7 @@ public class MapController : MonoBehaviour {
         if (participant.IsThePlayer) return;
         if (Players.Count == 1)
         {
-            GameController.WinLogic();
+            GameController.Instance.WinLogic();
         }
     }
 

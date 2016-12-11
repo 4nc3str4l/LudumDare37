@@ -19,7 +19,6 @@ namespace Assets.Scripts.Skills
                 new SpeedBonus(participant);
                 JukeBox.Instance.PlaySound(JukeBox.SOUNDS.Speed, 0.5f);
                 _nextExecution = Time.time + _executionRate / participant.CooldownBonus;
-                Debug.Log(_nextExecution);
                 _lastFired = Time.time;
                 return true;
             }

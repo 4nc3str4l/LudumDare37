@@ -5,24 +5,25 @@ using System;
 
 public class GameController : MonoBehaviour {
 
-    public static bool isGameOver = false;
-    public static float _timeOut = 0f;
-    public static int sceneToLoad = 0;
+    public static GameController Instance;
+    public bool isGameOver = false;
+    public float _timeOut = 0f;
+    public int sceneToLoad = 0;
 
     public void Awake()
     {
+        Instance = this;
         isGameOver = false;
     }
 
-    public static void GameOverLogic()
+    public void GameOverLogic()
     {
         isGameOver = true;
         _timeOut = Time.time + 2f;
         sceneToLoad = 2;
-        Debug.Log("Game Over");
     }
 
-    internal static void WinLogic()
+    internal void WinLogic()
     {
         isGameOver = true;
         _timeOut = Time.time + 2f;

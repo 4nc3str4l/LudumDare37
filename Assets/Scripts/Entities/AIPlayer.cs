@@ -28,8 +28,27 @@ public class AIPlayer : MonoBehaviour {
         MapController.OnAssasinChange += OnAssassinChanged;
         Participant.OnPlayerDead += OnPlayerDeath;
         Participant.OnPlayerHurt += OnPlayerHurt;
+        BasePowerUP.OnPowerUpAppeared += OnPowerUpAppeared;
     }
 	
+    void OnDestroy()
+    {
+        BasePowerUP.OnPowerUpAppeared -= OnPowerUpAppeared;
+        MapController.OnAssasinChange -= OnAssassinChanged;
+        Participant.OnPlayerDead -= OnPlayerDeath;
+        Participant.OnPlayerHurt -= OnPlayerHurt;
+    }
+
+    public void OnPowerUpAppeared(BasePowerUP powerup)
+    {
+
+        if(Vector3.Distance(powerup.transform.position, transform.position) <= Vector3.Distance(_destination, transform.position))
+        {
+            _destination = powerup.transform.position;
+            _changeRandomSpotTime = Time.time + 2f;
+        }
+    }
+
     public void OnPlayerHurt(Participant participant, float ammount)
     {
         if (participant.Name != _participant.Name) return;
@@ -50,8 +69,16 @@ public class AIPlayer : MonoBehaviour {
 
             }
         }
+        _destination =  GetRandomSpot();
+    }
 
-        _destination = MapController.GenerateRandomPointInsideMap();
+    Vector3 GetRandomSpot()
+    {
+        if (_dificulty > 3)
+            return OctaRoom.Instance.ActivePowerUps.Count > 0 ?
+                OctaRoom.Instance.ActivePowerUps[Random.Range(0, OctaRoom.Instance.ActivePowerUps.Count)].transform.position :
+                MapController.GenerateRandomPointInsideMap();
+        return MapController.GenerateRandomPointInsideMap();
     }
 
 	// Update is called once per frame
@@ -199,7 +226,7 @@ public class AIPlayer : MonoBehaviour {
 
     public void ChangeDestinationAndLookAtIt()
     {
-        _destination = MapController.GenerateRandomPointInsideMap();
+        _destination =  GetRandomSpot();
         _changeRandomSpotTime = Time.time + Random.Range(1, 3);
         var dir = _destination - transform.position;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg));

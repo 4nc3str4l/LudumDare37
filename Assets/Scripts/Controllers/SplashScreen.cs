@@ -34,7 +34,6 @@ public class SplashScreen : MonoBehaviour {
         int difficulty = (int)DificultySlider.value;
         ButtonText.text = "PLAY!";
         Color color = new Color((255 * difficulty) / DificultySlider.maxValue, (255 * (DificultySlider.maxValue - difficulty)) / DificultySlider.maxValue, 0, 255);
-        Debug.Log(color);
         switch (difficulty)
         {
             case 0:
