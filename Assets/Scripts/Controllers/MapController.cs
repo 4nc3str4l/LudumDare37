@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class MapController : MonoBehaviour {
@@ -13,12 +14,19 @@ public class MapController : MonoBehaviour {
     public List<Participant> Players;
 
     private Participant _assassin;
+    public Participant Assasin
+    {
+        get
+        {
+            return _assassin;
+        }
+    }
     public static Vector2 MAP_MIN = new Vector2(-10, -5);
     public const float MAP_WIDTH = 10;
     public const float MAP_HEIGHT = 10;
     public const float OFFSET = 0.5f;
 
-    public const float RADIUS = 12f;
+    public const float RADIUS = 10f;
 
     private List<SpriteRenderer> _mapComponents;
 
@@ -188,4 +196,6 @@ public class MapController : MonoBehaviour {
     {
         return _actualText;
     }
+
+
 }

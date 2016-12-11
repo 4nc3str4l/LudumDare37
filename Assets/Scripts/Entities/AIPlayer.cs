@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class AIPlayer : MonoBehaviour {
 
-    public const float MAX_KILL_DISTANCE = 8f;
+    public float MAX_KILL_DISTANCE;
 
     public enum GLOBAL_STATE { ASSASSIN, VICTIM }
     public enum STATE { GOING_TO_SPOT, HUNTING, KILLING }
@@ -17,8 +17,13 @@ public class AIPlayer : MonoBehaviour {
     private float _changeRandomSpotTime;
     private Vector3 _destination;
 
+    private int _dificulty = 1;
+    
+
 	// Use this for initialization
 	void Start () {
+        _dificulty = PlayerPrefs.GetInt("Difficulty");
+        MAX_KILL_DISTANCE = 4 + 2 * _dificulty;
         _participant = GetComponent<Participant>();
         MapController.OnAssasinChange += OnAssassinChanged;
         Participant.OnPlayerDead += OnPlayerDeath;
@@ -30,12 +35,22 @@ public class AIPlayer : MonoBehaviour {
         if (participant.Name != _participant.Name) return;
         if (ammount < 0) return;
 
-        if (!participant.SpecialSkill())
+        if (_dificulty <= 1) return;
+        else if(_dificulty > 1 && _dificulty < 4)
         {
             participant.PrincipalSkill();
             participant.SecondarySkill();
-            
         }
+        else
+        {
+            if (!participant.SpecialSkill())
+            {
+                participant.PrincipalSkill();
+                participant.SecondarySkill();
+
+            }
+        }
+
         _destination = MapController.GenerateRandomPointInsideMap();
     }
 
@@ -95,7 +110,11 @@ public class AIPlayer : MonoBehaviour {
     public void Hunting()
     {
         KeyValuePair<float, Participant> closestDistanceParticipant = MinPlayerDistance();
-        if(closestDistanceParticipant.Key < MAX_KILL_DISTANCE)
+        if (_dificulty == 5)
+        {
+            _participant.SpecialSkill();
+        }
+        if (closestDistanceParticipant.Key < MAX_KILL_DISTANCE)
         {
             _killingParticipant = closestDistanceParticipant.Value;
             _actualState = STATE.KILLING;
@@ -133,7 +152,22 @@ public class AIPlayer : MonoBehaviour {
             }
             else
             {
-                dir = (_killingParticipant.transform.position + new Vector3(Random.Range(-0.6f, 0.6f), Random.Range(-0.6f, 0.6f), transform.position.z) + _killingParticipant.transform.right) - transform.position;
+                if (_dificulty <= 1)
+                {
+                    dir = (_killingParticipant.transform.position + new Vector3(Random.Range(-0.6f, 0.6f), Random.Range(-0.6f, 0.6f), transform.position.z) + _killingParticipant.transform.right) - transform.position;
+                }
+                else if (_dificulty > 1 && _dificulty < 4)
+                {
+                    dir = (_killingParticipant.transform.position + new Vector3(Random.Range(-0.4f, 0.4f), Random.Range(-0.4f, 0.4f), transform.position.z) + _killingParticipant.transform.right) - transform.position;
+                }
+                else if(_dificulty == 4)
+                {
+                    dir = (_killingParticipant.transform.position + new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), transform.position.z) + _killingParticipant.transform.right) - transform.position;
+                }
+                else
+                {
+                    dir = (_killingParticipant.transform.position + new Vector3(Random.Range(-0.01f, 0.01f), Random.Range(-0.01f, 0.01f), transform.position.z) + _killingParticipant.transform.right) - transform.position;
+                }
             }
 
 

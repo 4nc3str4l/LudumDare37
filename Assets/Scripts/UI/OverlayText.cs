@@ -19,7 +19,7 @@ public class OverlayText : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = Camera.main.WorldToScreenPoint(Position);
+        
     }
 
 }

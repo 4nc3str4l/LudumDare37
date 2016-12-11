@@ -3,12 +3,14 @@ using System.Collections;
 
 public class InputHandler : MonoBehaviour {
 
-    Participant _participant;
+    public static InputHandler Instance;
+    public Participant participant;
 
 	// Use this for initialization
 	void Start () {
-        _participant = GetComponent<Participant>();
-        _participant.IsThePlayer = true;
+        Instance = this;
+        participant = GetComponent<Participant>();
+        participant.IsThePlayer = true;
 	}
 	
 	// Update is called once per frame
@@ -21,27 +23,37 @@ public class InputHandler : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.W))
         {
-            _participant.MoveForward();
+            participant.MoveForward();
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _participant.SpecialSkill();
+            participant.SpecialSkill();
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            _participant.MoveBack();
+            participant.MoveBack();
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            participant.TurnLeft();
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            participant.TurnRight();
         }
 
         if (Input.GetButtonDown("Fire1"))
         {
-            _participant.PrincipalSkill();
+            participant.PrincipalSkill();
         }
 
         if (Input.GetButton("Fire2"))
         {
-            _participant.SecondarySkill();
+            participant.SecondarySkill();
         }
     }
 }

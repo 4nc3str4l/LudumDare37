@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class JukeBox : MonoBehaviour {
 
@@ -8,6 +9,9 @@ public class JukeBox : MonoBehaviour {
     private AudioSource _audioSource;
     public AudioClip BloodyTime, CyanoTime, Dead, Impact, LaserShoot, LemonidasTime, LetMeThink, Misile, PinkyTime, Teleport, Welcome, YouWin, Speed, Invencible, ExplosionDie, LemoDies, PinkyDies, CyaniDies, BloodyDies;
     public Dictionary<SOUNDS, AudioClip> _loadedSounds;
+    public Slider VolumeSlider;
+    public static float MasterVolume = 1f;
+
 
     void Awake()
     {
@@ -43,6 +47,12 @@ public class JukeBox : MonoBehaviour {
 	
     public void PlaySound(SOUNDS sound, float volume = 0.3f)
     {
-        _audioSource.PlayOneShot(_loadedSounds[sound], volume);
+        _audioSource.PlayOneShot(_loadedSounds[sound], volume * MasterVolume);
+    }
+
+    public void OnVolumeChange()
+    {
+        MasterVolume = VolumeSlider.value;
+        Debug.Log("Volume Changed" + MasterVolume);
     }
 }

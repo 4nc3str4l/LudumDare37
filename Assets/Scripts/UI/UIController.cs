@@ -7,7 +7,7 @@ public class UIController : MonoBehaviour {
 
     public static UIController Instance;
     public GameObject PlayerHealthPrefab, OverlayText, FloatingText, FadingText;
-    public Text DialogText;
+    public Text DialogText, DificultyText;
     public SkillPanel Skill1, Skill2, Special;
 
     public Sprite Octa, Pinky, Cyano, Lemon, Bloody;
@@ -22,7 +22,28 @@ public class UIController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+        switch (PlayerPrefs.GetInt("Difficulty"))
+        {
+            case 0:
+                DificultyText.text = "Noob";
+                break;
+            case 1:
+                DificultyText.text = "Mehh..";
+                break;
+            case 2:
+                DificultyText.text = "Intermediate";
+                break;
+            case 3:
+                DificultyText.text = "Advanced";
+                break;
+            case 4:
+                DificultyText.text = "Impossible";
+                break;
+            case 5:
+                DificultyText.text = "APOCALIPSIS";
+                DificultyText.color = Color.red;
+                break;
+        }
 	}
 	
 	// Update is called once per frame

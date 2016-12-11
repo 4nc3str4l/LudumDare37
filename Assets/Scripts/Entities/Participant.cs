@@ -36,6 +36,8 @@ public class Participant : MonoBehaviour {
 
     public bool IsThePlayer = false;
 
+    public float CooldownBonus = 1f;
+
     public bool Invencible
     {
         get { return _invencible; }
@@ -129,12 +131,12 @@ public class Participant : MonoBehaviour {
 
     public void TurnLeft()
     {
-        transform.Translate(Vector3.up * _actualSpeed * Time.deltaTime);
+        transform.Rotate(new Vector3(0, 0, 1) * 360 * Time.deltaTime);
     }
 
     public void TurnRight()
     {
-        transform.Translate(Vector3.down * _actualSpeed * Time.deltaTime);
+        transform.Rotate(new Vector3(0, 0, -1) * 360 * Time.deltaTime);
     }
 
     public void MoveForward()
@@ -280,5 +282,16 @@ public class Participant : MonoBehaviour {
         _invencible = invencible;
         if(invencible)
             UIController.Instance.CreateFloatingText("Invencible", Color.white, transform);
+    }
+
+    public void ReduceCooldowns(float reductionAmmount)
+    {
+        UIController.Instance.CreateFloatingText("Cooldown reduction", Color.white, transform);
+        CooldownBonus = reductionAmmount;
+    }
+
+    public void ResetCoooldownBonus()
+    {
+        CooldownBonus = 1f;
     }
 }
